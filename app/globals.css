@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design tokens — one set, swapped by [data-theme].
+   Dark is the default; light is a genuine remap, not an inversion.
+   ============================================================ */
+
+:root,
+[data-theme="dark"] {
+  --bg: #131415;
+  --panel: #191a1c;
+  --panel2: #1d1e21;
+  --side: #0d0e0f;
+  --line: #242527;
+  --line2: #202123;
+
+  --tx: #ededef;
+  --tx2: #b4b8c0;
+  --tx3: #878c95;
+  --tx4: #666a72;
+
+  --ind: #5e6ad2;
+  --vio: #8b5cf6;
+  --vio2: #a78bfa;
+  --grn: #4cb782;
+  --yel: #e2b203;
+  --red: #eb5757;
+
+  --hero-a: #221e30;
+  --hero-b: #191a1c;
+  --hero-bd: #332c4d;
+  --wash: rgb(139 92 246 / 0.22);
+
+  --chip: #26272b;
+  --hov: #1a1b1d;
+  --rail: #26272b;
+
+  --shadow-tile: 0 8px 30px rgb(139 92 246 / 0.22);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #f6f6f8;
+  --panel: #ffffff;
+  --panel2: #fbfbfc;
+  --side: #ffffff;
+  --line: #e4e4e8;
+  --line2: #eeeef1;
+
+  --tx: #0e0e11;
+  --tx2: #4a4a55;
+  --tx3: #71717a;
+  --tx4: #9a9aa3;
+
+  --ind: #4f46e5;
+  --vio: #7c3aed;
+  --vio2: #8b5cf6;
+  --grn: #0e9f6e;
+  --yel: #b45309;
+  --red: #dc2626;
+
+  --hero-a: #f4f0ff;
+  --hero-b: #ffffff;
+  --hero-bd: #ded5fa;
+  --wash: rgb(124 58 237 / 0.14);
+
+  --chip: #f1f1f4;
+  --hov: #f6f6f8;
+  --rail: #eaeaee;
+
+  --shadow-tile: 0 8px 26px rgb(124 58 237 / 0.18);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel2: var(--panel2);
+  --color-side: var(--side);
+  --color-line: var(--line);
+  --color-line2: var(--line2);
+
+  --color-tx: var(--tx);
+  --color-tx2: var(--tx2);
+  --color-tx3: var(--tx3);
+  --color-tx4: var(--tx4);
+
+  --color-ind: var(--ind);
+  --color-vio: var(--vio);
+  --color-vio2: var(--vio2);
+  --color-grn: var(--grn);
+  --color-yel: var(--yel);
+  --color-red: var(--red);
+
+  --color-chip: var(--chip);
+  --color-hov: var(--hov);
+  --color-rail: var(--rail);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Reusable surface + type primitives ------------------------------------ */
+
+.tile {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  transition: transform 0.16s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.tile-hover:hover {
+  transform: translateY(-2px);
+}
+
+.lab {
+  font-size: 8.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--tx4);
+}
+
+/* The hero brief — the one place violet appears on the dashboard */
+.hero-mesh {
+  border-color: var(--hero-bd);
+  background:
+    radial-gradient(90% 120% at 100% 0%, var(--wash) 0%, transparent 58%),
+    radial-gradient(70% 100% at 0% 100%, rgb(94 106 210 / 0.14) 0%, transparent 55%),
+    linear-gradient(155deg, var(--hero-a) 0%, var(--hero-b) 62%);
+}
+
+.violet-fill {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(150deg, #7c5cff 0%, #5e6ad2 55%, #4a56c4 100%);
+  box-shadow: var(--shadow-tile);
+}
+
+.btn-violet {
+  background: linear-gradient(135deg, var(--vio), var(--ind));
+  color: #fff;
+  box-shadow: var(--shadow-tile);
+}
+
+/* Scrollbars ------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--rail);
+  border-radius: 99px;
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tx4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

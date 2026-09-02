@@ -23,3 +23,7 @@ npm-debug.log*
 yarn-error.log*
 .vercel
 *.tsbuildinfo
+
+# next.js generated agent rules
+AGENTS.md
+CLAUDE.md
