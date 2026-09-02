@@ -1,0 +1,30 @@
+# Apache config for the static export on DreamHost.
+# Copied to out/.htaccess by scripts/deploy.sh — do not edit the copy.
+
+# Next emits /inbox/index.html etc. MultiViews would try to guess extensions
+# and can shadow those directories; turn it off.
+Options -MultiViews
+DirectoryIndex index.html
+
+ErrorDocument 404 /404.html
+
+# Build assets under /_next/static are content-hashed and safe to cache forever.
+# HTML must revalidate so a redeploy is picked up immediately.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2|woff|ttf|svg|ico|png|jpg|webp)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+</IfModule>

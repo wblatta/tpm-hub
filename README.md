@@ -56,19 +56,37 @@ npm run dev          # http://localhost:3000
 
 ## Deploying
 
-The app builds to a static bundle with no Node runtime required:
+The app builds to a static bundle — no Node runtime on the server:
 
 ```bash
 npm run build        # emits ./out
 ```
 
-Copy `out/` to any web server. To serve from a subdirectory:
+Copy `out/` to any web server. Live at
+**[wblatta-tpm-hub.dreamhosters.org](https://wblatta-tpm-hub.dreamhosters.org/)**.
+
+### DreamHost
+
+```bash
+DH_USER=your_shell_user ./scripts/deploy.sh          # dry run
+DH_USER=your_shell_user ./scripts/deploy.sh --live   # upload
+```
+
+The script builds, copies `deploy/htaccess` to `out/.htaccess`, and rsyncs with `--delete` so
+stale hashed assets don't pile up. Override `DH_HOST` or `DH_PATH` if the domain's web
+directory differs.
+
+`trailingSlash` is on, so every route is a real directory containing `index.html` — Apache
+serves them with no rewrite rules. The `.htaccess` disables MultiViews, points 404s at
+`404.html`, and caches hashed assets for a year while keeping HTML revalidating.
+
+### Subdirectory hosting
 
 ```bash
 BASE_PATH=/tpm-hub npm run build
 ```
 
-It also deploys unchanged to Vercel or any static host.
+Also deploys unchanged to Vercel, Netlify, or GitHub Pages.
 
 ## About the real tool
 
