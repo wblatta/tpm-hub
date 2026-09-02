@@ -7,6 +7,8 @@ control app I built and used daily as a TPM at Netflix. The UI here is real and 
 interactive. The data is mocked: there are no live integrations, no database, and no model
 calls. Fetch, aggregation, and inference are deliberately out of scope.
 
+Live at wblatta-tpm-hub.dreamhosters.com
+
 ## What it demonstrates
 
 The workflow the real tool was built around:
