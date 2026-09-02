@@ -65,20 +65,45 @@ npm run build        # emits ./out
 Copy `out/` to any web server. Live at
 **[wblatta-tpm-hub.dreamhosters.org](https://wblatta-tpm-hub.dreamhosters.org/)**.
 
-### DreamHost
+### DreamHost — FTP
+
+```bash
+npm run build
+cp deploy/htaccess out/.htaccess
+```
+
+Upload the **contents** of `out/` (not the folder itself) into the domain's web directory,
+`~/wblatta-tpm-hub.dreamhosters.org/`. Roughly 97 files, 2.3 MB.
+
+Three things to get right:
+
+- **Enable "show hidden files"** in the FTP client before uploading, or `.htaccess` is
+  silently skipped — it's the only dotfile in the bundle.
+- **Transfer in binary mode.** The bundle includes `.woff2` fonts and `.ico` files; ASCII mode
+  corrupts them. Auto-detect handles this in most clients, but force binary if fonts render
+  as fallbacks.
+- **Delete the old `_next/` directory before re-uploading.** Asset filenames are
+  content-hashed, so old builds accumulate rather than overwrite.
+
+### DreamHost — rsync
+
+If the domain has shell access, `scripts/deploy.sh` handles the above automatically:
 
 ```bash
 DH_USER=your_shell_user ./scripts/deploy.sh          # dry run
 DH_USER=your_shell_user ./scripts/deploy.sh --live   # upload
 ```
 
-The script builds, copies `deploy/htaccess` to `out/.htaccess`, and rsyncs with `--delete` so
-stale hashed assets don't pile up. Override `DH_HOST` or `DH_PATH` if the domain's web
-directory differs.
+It builds, injects `.htaccess`, and syncs with `--delete` so stale assets don't pile up.
+Override `DH_HOST` or `DH_PATH` if the web directory differs.
+
+### Why no rewrite rules are needed
 
 `trailingSlash` is on, so every route is a real directory containing `index.html` — Apache
-serves them with no rewrite rules. The `.htaccess` disables MultiViews, points 404s at
-`404.html`, and caches hashed assets for a year while keeping HTML revalidating.
+serves them natively. The `.htaccess` is an enhancement, not a requirement: it disables
+MultiViews, points 404s at the styled `404.html`, and caches hashed assets for a year while
+keeping HTML revalidating. Without it the site still works; you just get Apache's default 404
+and weaker caching.
 
 ### Subdirectory hosting
 
