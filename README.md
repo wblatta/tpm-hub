@@ -69,8 +69,11 @@ Copy `out/` to any web server. Live at
 
 ```bash
 npm run build
-cp deploy/htaccess out/.htaccess
 ```
+
+`.htaccess` is injected automatically by the `postbuild` script. Note that `next build` wipes
+`out/` each time, so never copy files in before building — anything added beforehand is
+deleted.
 
 Upload the **contents** of `out/` (not the folder itself) into the domain's web directory,
 `~/wblatta-tpm-hub.dreamhosters.com/`. Roughly 97 files, 2.3 MB.
@@ -78,7 +81,8 @@ Upload the **contents** of `out/` (not the folder itself) into the domain's web 
 Three things to get right:
 
 - **Enable "show hidden files"** in the FTP client before uploading, or `.htaccess` is
-  silently skipped — it's the only dotfile in the bundle.
+  silently skipped — it's the only dotfile in the bundle. It lives at `out/.htaccess`; the
+  source is `deploy/htaccess` (no leading dot, so it stays visible in the repo).
 - **Transfer in binary mode.** The bundle includes `.woff2` fonts and `.ico` files; ASCII mode
   corrupts them. Auto-detect handles this in most clients, but force binary if fonts render
   as fallbacks.
@@ -94,7 +98,7 @@ DH_USER=your_shell_user ./scripts/deploy.sh          # dry run
 DH_USER=your_shell_user ./scripts/deploy.sh --live   # upload
 ```
 
-It builds, injects `.htaccess`, and syncs with `--delete` so stale assets don't pile up.
+It builds (which injects `.htaccess`) and syncs with `--delete` so stale assets don't pile up.
 Override `DH_HOST` or `DH_PATH` if the web directory differs.
 
 ### Why no rewrite rules are needed

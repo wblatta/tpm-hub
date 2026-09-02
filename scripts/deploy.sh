@@ -25,8 +25,8 @@ echo "==> Building static export"
 rm -rf out
 npm run build
 
-echo "==> Adding .htaccess"
-cp deploy/htaccess out/.htaccess
+# .htaccess is injected by the postbuild npm script, which runs as part of
+# `npm run build` above — no separate copy step needed here.
 
 # --delete removes files on the server that no longer exist locally, so stale
 # hashed assets from previous deploys don't accumulate forever.

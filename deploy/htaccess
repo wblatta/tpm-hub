@@ -1,5 +1,6 @@
 # Apache config for the static export on DreamHost.
-# Copied to out/.htaccess by scripts/deploy.sh — do not edit the copy.
+# Copied to out/.htaccess automatically by the postbuild npm script.
+# Edit this file, not the copy in out/ (which every build overwrites).
 
 # Next emits /inbox/index.html etc. MultiViews would try to guess extensions
 # and can shadow those directories; turn it off.
