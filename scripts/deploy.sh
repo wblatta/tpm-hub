@@ -10,8 +10,8 @@
 set -euo pipefail
 
 DH_USER="${DH_USER:-}"
-DH_HOST="${DH_HOST:-wblatta-tpm-hub.dreamhosters.org}"
-DH_PATH="${DH_PATH:-~/wblatta-tpm-hub.dreamhosters.org}"
+DH_HOST="${DH_HOST:-wblatta-tpm-hub.dreamhosters.com}"
+DH_PATH="${DH_PATH:-~/wblatta-tpm-hub.dreamhosters.com}"
 
 if [[ -z "$DH_USER" ]]; then
   echo "error: set DH_USER to your DreamHost shell username, e.g." >&2

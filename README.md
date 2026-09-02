@@ -63,7 +63,7 @@ npm run build        # emits ./out
 ```
 
 Copy `out/` to any web server. Live at
-**[wblatta-tpm-hub.dreamhosters.org](https://wblatta-tpm-hub.dreamhosters.org/)**.
+**[wblatta-tpm-hub.dreamhosters.com](https://wblatta-tpm-hub.dreamhosters.com/)**.
 
 ### DreamHost — FTP
 
@@ -73,7 +73,7 @@ cp deploy/htaccess out/.htaccess
 ```
 
 Upload the **contents** of `out/` (not the folder itself) into the domain's web directory,
-`~/wblatta-tpm-hub.dreamhosters.org/`. Roughly 97 files, 2.3 MB.
+`~/wblatta-tpm-hub.dreamhosters.com/`. Roughly 97 files, 2.3 MB.
 
 Three things to get right:
 
